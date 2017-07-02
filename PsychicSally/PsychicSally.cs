@@ -22,11 +22,15 @@ namespace PsychicSally
     private DateTime startTime;
     private DateTime endTime;
     private bool guessedCorrectly;
+    private HighScore highScore;
 
     public int MaxTries { get; set; }
+
     public PsychicSally()
     {
+      var storage = new InMemoryStorage();
       MaxTries = 10;
+      highScore = new HighScore(storage);
     }
 
     public void Start()
@@ -89,8 +93,19 @@ namespace PsychicSally
 
     private void HandleCorrectGuess()
     {
-      var totalTime = endTime.Subtract(startTime).TotalSeconds;
-      Console.WriteLine($"Gratulerer, du gjettet riktig på {guesses} forsøk og brukte {totalTime} sekunder!");
+      var score = GetScore();
+      Console.WriteLine($"Gratulerer, du gjettet riktig på {score.Guesses} forsøk og brukte {score.TotalTime} sekunder!");
+
+      //TODO: Add to highscore if good enough
+      highScore.AddScore("Test", score);
+      highScore.Print();
+    }
+
+    private Score GetScore()
+    {
+      var score = new Score();
+      //TODO: Calculate total time and create Score object
+      return score;
     }
 
     private void Stop()
