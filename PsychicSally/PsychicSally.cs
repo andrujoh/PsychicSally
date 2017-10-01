@@ -19,6 +19,7 @@ namespace PsychicSally
 
     private int numberToGuess;
     private int guesses;
+    private int max = 100;
     private DateTime startTime;
     private DateTime endTime;
     private bool guessedCorrectly;
@@ -36,7 +37,7 @@ namespace PsychicSally
     public void Start()
     {
       startTime = DateTime.Now;
-      numberToGuess = random.Next(0, 100);
+      numberToGuess = random.Next(0, max);
       guessedCorrectly = false;
       for (var tries = 0; tries < MaxTries; tries++)
       {
@@ -103,7 +104,8 @@ namespace PsychicSally
 
     private Score GetScore()
     {
-      var score = new Score();
+      TimeSpan duration = endTime - startTime;
+      var score = new Score(guesses, duration.TotalSeconds);
       //TODO: Calculate total time and create Score object
       return score;
     }
