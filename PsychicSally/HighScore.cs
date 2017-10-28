@@ -93,11 +93,12 @@ namespace PsychicSally
       sb.AppendLine("  ------------------------------  ");
       sb.AppendLine(" | Psychic Sally - Hall Of Fame | ");
       sb.AppendLine(" |------------------------------| ");
+      sb.AppendLine(" |-Plass--Navn---Forsøk---Tid---|");
       for (int i = 0; i < scores.Count; i++)
       {
         var score = scores[i];
         sb.AppendFormat(
-          " | {0:00}. {1, -11}{2,4}{3,8:0.000} | ",
+          " | {0:00}. {1, -11}{2,4}{3,8:0.000}  | ",
           i + 1,
           score.Name,
           score.Score.Guesses,

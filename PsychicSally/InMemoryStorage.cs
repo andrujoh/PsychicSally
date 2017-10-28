@@ -11,12 +11,12 @@ namespace PsychicSally
     private static List<Scoring> Scorings = new List<Scoring>();
     public List<Scoring> Load()
     {
-      return new List<Scoring>();
+      return Scorings;
     }
 
-    public void Save(List<Scoring> scores)
+    public void Save(List<Scoring> scorings)
     {
-      
+      Scorings = scorings;
     }
   }
 }

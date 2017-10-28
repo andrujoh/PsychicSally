@@ -29,7 +29,8 @@ namespace PsychicSally
 
     public PsychicSally()
     {
-      var storage = new InMemoryStorage();
+      //var storage = new InMemoryStorage();
+      var storage = new FileStorage("highscore.dat");
       MaxTries = 10;
       highScore = new HighScore(storage);
     }
@@ -57,7 +58,7 @@ namespace PsychicSally
       HandleResult(result);
     }
 
-    private int ReadNumber()
+    private static int ReadNumber()
     {
       Console.Write("Skriv inn et tall mellom 1 og 100: ");
       var input = Console.ReadLine();
@@ -97,16 +98,20 @@ namespace PsychicSally
       var score = GetScore();
       Console.WriteLine($"Gratulerer, du gjettet riktig på {score.Guesses} forsøk og brukte {score.TotalTime} sekunder!");
 
-      //TODO: Add to highscore if good enough
-      highScore.AddScore("Test", score);
-      highScore.Print();
+      if (highScore.IsScoreHighEnough(score))
+      {
+        Console.Write("Skriv inn navnet ditt for å legges til i hall of fame: ");
+        string playerName = Console.ReadLine();
+        highScore.AddScore(playerName, score);
+        highScore.Print();
+      }
+      
     }
 
     private Score GetScore()
     {
       TimeSpan duration = endTime - startTime;
       var score = new Score(guesses, duration.TotalSeconds);
-      //TODO: Calculate total time and create Score object
       return score;
     }
 
